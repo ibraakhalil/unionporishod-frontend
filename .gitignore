@@ -3,6 +3,9 @@
 public
 /public
 
+database
+/database
+
 # dependencies
 /node_modules
 /.pnp

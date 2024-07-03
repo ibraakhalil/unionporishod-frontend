@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: 21 128 61;
+  --subtitle-color: 49 146 85;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #fff;
+    --secondary: #000;
+  }
+}
+
+* {
+  font-family: "Hind Siliguri", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@layer base {
+  input {
+    @apply w-full !outline-none;
+  }
+}
+
+.my-container {
+  @apply mx-auto w-[90%] max-w-[1400px];
+}

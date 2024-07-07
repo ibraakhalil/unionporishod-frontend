@@ -5,15 +5,12 @@
 @tailwind utilities;
 
 :root {
-  --primary-color: 21 128 61;
-  --subtitle-color: 49 146 85;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --primary: #fff;
-    --secondary: #000;
-  }
+  --color-primary: 21 128 61;
+  --color-secondary: 140 18 18;
+  --color-title: 24 24 24;
+  --color-subtitle: 49 146 85;
+  --color-primary-bg: 255 255 255;
+  --color-secondary-bg: 241 245 249;
 }
 
 * {

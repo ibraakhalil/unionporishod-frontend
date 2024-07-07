@@ -10,9 +10,15 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "rgb(var(--primary-color))",
+          DEFAULT: "rgb(var(--color-primary))",
+          bg: "rgb(var(--color-primary-bg))",
         },
-        "subtitle-color": "rgb(var(--subtitle-color))",
+        secondary: {
+          DEFAULT: "rgb(var(--color-secondary))",
+          bg: "rgb(var(--color-secondary-bg))",
+        },
+        title: "rgb(var(--color-title))",
+        subtitle: "rgb(var(--color-subtitle))",
       },
       fontFamily: {
         siliguri: ["Hind Siliguri"],

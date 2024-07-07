@@ -1,25 +1,25 @@
+import { navMenuList, SHOW_NAV_ITEM_ON_HEADER } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
+import Dropdown from "./Dropdown";
 
 const Navbar = () => {
   return (
-    <nav className="flex h-20 items-center bg-green-700">
+    <nav className="flex h-20 items-center bg-primary">
       <div className="my-container flex items-center justify-between">
         <div>
           <Image src="/icons/logo.png" width={60} height={60} alt="Logo" />
         </div>
-        <ul className="font-siliguri flex items-center gap-8 text-lg text-white">
+        <ul className="flex items-center gap-8 font-siliguri text-lg text-white">
+          {navMenuList.slice(0, SHOW_NAV_ITEM_ON_HEADER).map((nav) => (
+            <li>
+              <Link href={nav.href}>{nav.name}</Link>
+            </li>
+          ))}
           <li>
-            <Link href="/">হোম</Link>
-          </li>
-          <li>
-            <Link href="holding">হোল্ডিং সার্চ</Link>
-          </li>
-          <li>
-            <Link href="holding">ফটো গ্যালারি</Link>
-          </li>
-          <li>
-            <Link href="holding">অন্যান্য</Link>
+            <Link href="holding">
+              <Dropdown />
+            </Link>
           </li>
         </ul>
       </div>

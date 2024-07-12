@@ -8,7 +8,7 @@ type State = {
   setLoading: (isLoading: boolean) => void;
 };
 
-const useHoldingStore = create<State>((set) => ({
+export const useHoldingStore = create<State>((set) => ({
   // Initial states
   userInfo: null,
   count: 0,
@@ -18,5 +18,3 @@ const useHoldingStore = create<State>((set) => ({
   setUserInfo: (info) => set({ userInfo: info }),
   setLoading: (isLoading) => set({ loading: isLoading }),
 }));
-
-export default useHoldingStore;

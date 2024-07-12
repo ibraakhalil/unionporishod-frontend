@@ -7,14 +7,14 @@ export const SHOW_NAV_ITEM_ON_HEADER = 3;
 
 export const navMenuList: Link[] = [
   { name: "হোম", href: "/" },
-  { name: "বর্তমান পরিষদ", href: "/porishod" },
+  { name: "বর্তমান পরিষদ", href: "/porisodh" },
   { name: "হোল্ডিং সার্চ", href: "/holding" },
   { name: "নোটিশ", href: "/notice" },
   { name: "অভিযোগ", href: "/complain" },
   { name: "প্রকল্প", href: "/project" },
   { name: "ফটো গ্যালারি", href: "/photo" },
   { name: "ভিডিও গ্যালারি", href: "/video" },
-  { name: "ড্যাশবোর্ড", href: "/auth/dashboard" },
+  { name: "ড্যাশবোর্ড", href: "/admin" },
   { name: "লগিন", href: "/auth/login" },
 ];
 

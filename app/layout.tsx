@@ -1,8 +1,6 @@
-import Footer from "@/components/common/Footer";
-import Navbar from "@/components/common/Navbar";
+import TanstackProvider from "@/components/common/TanstackProvider";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
-
 export const metadata: Metadata = {
   title: "Union Porishodh",
   description: "Website of Union Porishodh",
@@ -15,11 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <Navbar />
-        {children}
-        <Footer />
-      </body>
+      <TanstackProvider>
+        <body>{children}</body>
+      </TanstackProvider>
     </html>
   );
 }

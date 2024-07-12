@@ -19,6 +19,8 @@ const config: Config = {
         },
         title: "rgb(var(--color-title))",
         subtitle: "rgb(var(--color-subtitle))",
+        pure: "#ffffff",
+        dark: "#000000",
       },
       fontFamily: {
         siliguri: ["Hind Siliguri"],

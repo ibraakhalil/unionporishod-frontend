@@ -1,5 +1,5 @@
 "use client";
-import useHoldingStore from "@/stores/holdingStore";
+import { useHoldingStore } from "@/stores/holdingStore";
 import { ChangeEvent, useState } from "react";
 import Loading from "../svg/Loading";
 import { SearchIcon } from "../svg/SearchIcons";
@@ -7,7 +7,7 @@ import { SearchIcon } from "../svg/SearchIcons";
 const HoldingSearchInput = () => {
   const [inputValue, setInputValue] = useState("");
   const { loading, setUserInfo, setLoading } = useHoldingStore(
-    (state) => state,
+    (state: any) => state,
   );
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

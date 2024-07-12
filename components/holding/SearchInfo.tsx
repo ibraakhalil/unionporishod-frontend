@@ -1,5 +1,5 @@
 "use client";
-import useHoldingStore from "@/stores/holdingStore";
+import { useHoldingStore } from "@/stores/holdingStore";
 import { convertToBanglaDigits } from "@/utils/numberConverter";
 import Link from "next/link";
 import { SearchUserIcon } from "../svg/SearchIcons";

@@ -11,7 +11,7 @@ export default function layout({ children }: LayoutProps) {
       <LeftSidebar />
       <div className="w-full">
         <AdminNav />
-        <div className="w-full overflow-hidden">{children}</div>
+        <div className="w-full overflow-hidden p-4">{children}</div>
       </div>
     </div>
   );

@@ -1,33 +1,25 @@
 "use client";
+import { cn } from "@/lib/cn";
 import { useHoldingStore } from "@/stores/holdingStore";
 import { convertToBanglaDigits } from "@/utils/numberConverter";
-import Link from "next/link";
+import Loading from "../svg/Loading";
 import { SearchUserIcon } from "../svg/SearchIcons";
+import UserInfo from "./UserInfo";
 
-const SearchInfo = () => {
-  const { userInfo } = useHoldingStore((state) => state);
+interface SearchInfoProps {
+  className?: string;
+}
+
+const SearchInfo = ({ className }: SearchInfoProps) => {
+  const { userInfo, error, loading } = useHoldingStore((state) => state);
 
   return (
-    <div className="mt-12 overflow-hidden rounded-xl bg-slate-100">
-      {userInfo ? (
+    <div
+      className={cn("mt-12 overflow-hidden rounded-xl bg-slate-100", className)}
+    >
+      {userInfo && (
         <div>
-          <div className="bg-primary/20 px-10 py-6">
-            <div className="flex w-full items-center justify-between">
-              <div className="flex flex-col gap-1">
-                <h2 className="text-3xl font-semibold">মোঃ আব্দুল হালিম</h2>
-                <p className="text-base">পিতার নামঃ আবু বকর</p>
-                <p className="text-base">হোল্ডিং নাম্বারঃ ০৫</p>
-                <p className="text-base">
-                  ভোটার আইডিঃ {convertToBanglaDigits(userInfo.nid)}
-                </p>
-              </div>
-              <Link href={`holding/${userInfo.nid}`}>
-                <button className="rounded-md bg-blue-600 px-4 py-1.5 text-white">
-                  প্রোফাইল দেখুন
-                </button>
-              </Link>
-            </div>
-          </div>
+          <UserInfo />
           <div className="min-h-[300px] px-10 py-4">
             <h1 className="mt-3 text-center text-xl font-semibold">
               সর্বশেষ কর আদায়
@@ -64,12 +56,24 @@ const SearchInfo = () => {
             </table>
           </div>
         </div>
-      ) : (
-        <div className="flex w-full justify-center py-16">
-          <div>
-            <SearchUserIcon className="size-[100px] text-primary/20" />
+      )}
+      {!userInfo && !loading && (
+        <div className="flex w-full flex-col items-center justify-center py-16">
+          <SearchUserIcon
+            className={cn("size-[100px] text-primary/20", {
+              "text-red-600/70": error,
+            })}
+          />
+          {!error && (
             <p className="mt-5 text-center text-gray-400">হোল্ডিং সার্চ করুন</p>
-          </div>
+          )}
+          {error && <p className="mt-5 text-center text-red-600">{error}</p>}
+        </div>
+      )}
+      {loading && (
+        <div className="flex w-full flex-col items-center justify-center py-16">
+          <Loading className="size-12" />
+          <p className="mt-5 text-center text-gray-400"> সার্চিং...</p>
         </div>
       )}
     </div>

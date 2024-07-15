@@ -1,6 +1,5 @@
 const page = () => {
   const cards = [1, 2, 3, 4, 5];
-
   return (
     <div>
       <div className="flex flex-wrap items-center gap-5 p-4">

@@ -1,16 +1,15 @@
 import DropMenu from "../common/DropMenu";
 import LinkCard from "./LinkCard";
 
-const taxArray = [
-  { name: "সদস্য নিবন্ধন করুন", href: "/create-holding" },
-  { name: "ওয়ার্ড ভিত্তিক দেখুন", href: "/create-holding" },
-  { name: "সবগুলো দেখুন", href: "/create-holding" },
+const taxHolder = [
+  { name: "সদস্য নিবন্ধন করুন", href: "/holding/create-holding" },
+  { name: "ওয়ার্ড ভিত্তিক দেখুন", href: "/holding/create-holding" },
+  { name: "সবগুলো দেখুন", href: "/holding" },
 ];
 
-const taxHolder = [
-  { name: "সদস্য নিবন্ধন করুন", href: "/create-holding" },
-  { name: "ওয়ার্ড ভিত্তিক দেখুন", href: "/create-holding" },
-  { name: "সবগুলো দেখুন", href: "/create-holding" },
+const taxArray = [
+  { name: "কর আদায় ফর্ম", href: "/holding/tax-collection" },
+  { name: "কর আদায় লিস্ট", href: "/holding/all-transaction" },
 ];
 
 export default function LeftSidebar() {

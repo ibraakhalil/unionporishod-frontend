@@ -1,11 +1,14 @@
 "use client";
-import InputError from "@/components/admin/InputError";
-import InputField from "@/components/admin/InputField";
-import SelectInput from "@/components/admin/SelectInput";
+import SelectInput from "@/components/common/SelectInput";
+import InputError from "@/components/common/InputError";
+import InputField from "@/components/common/InputField";
+import Loading from "@/components/svg/Loading";
+import { CREATE_HOLDING } from "@/constants/allApiRoutes";
 import {
   addressInputData,
   genderOptions,
   homeInputData,
+  newHoldingInitialValues,
   occupationOptions,
   personalInputData,
   religionOptions,
@@ -15,47 +18,25 @@ import { holdingSchema } from "@/utils/validation/holdingSchema";
 import axios from "axios";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 const page = () => {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const formik = useFormik({
-    initialValues: {
-      name: "",
-      guardianName: "",
-      motherName: "",
-      nid: "",
-      mobile: "",
-      yearlyIncome: "",
-      religion: "",
-      occupation: "",
-      gender: "",
-      ward: "",
-      totalMember: "",
-      maleMember: "",
-      femaleMember: "",
-      maleChildren: "",
-      femaleChildren: "",
-      multibuilding: "",
-      building: "",
-      halfbuilding: "",
-      rawhouse: "",
-      village: "",
-      postoffice: "",
-      thana: "",
-      district: "",
-      tax: "",
-      yearlyincome: "",
-      comment: "",
-    },
-
+    initialValues: newHoldingInitialValues,
     validationSchema: holdingSchema,
     onSubmit: (values: any) => {
-      console.log(values);
-      alert(values);
-      // axios
-      //   .post("http://localhost:5500/holding/create", values)
-      //   .then((res) => router.push("/admin"))
-      //   .catch((err) => console.error(err));
+      setLoading(true);
+      axios
+        .post(CREATE_HOLDING, values)
+        .then((res) => {
+          setLoading(false);
+          toast.success("নতুন হোল্ডিং সদস্য সফলভাবে  নিবন্ধিত হয়েছে");
+          router.push("/admin");
+        })
+        .catch((err) => console.error(err));
     },
   });
 
@@ -73,12 +54,17 @@ const page = () => {
           <div className="grid grid-cols-2 gap-x-6 gap-y-2">
             <div className="flex flex-col justify-start gap-4">
               {personalInputData.map((data, i) => (
-                <InputField
-                  key={i}
-                  formik={formik}
-                  name={data.name}
-                  title={data.title}
-                />
+                <div key={i} className="flex flex-col">
+                  <InputField
+                    onChange={formik.handleChange}
+                    value={formik.values[data.name]}
+                    name={data.name}
+                    title={data.title}
+                  />
+                  {formik.errors[data.name] && formik.touched[data.name] && (
+                    <InputError message={formik.errors[data.name]} />
+                  )}
+                </div>
               ))}
             </div>
             <div className="flex flex-col gap-4">
@@ -86,25 +72,25 @@ const page = () => {
                 name="religion"
                 title="ধর্ম"
                 options={religionOptions}
-                formik={formik}
+                onChange={formik.handleChange}
               />
               <SelectInput
                 name="occupation"
                 title="পেশা"
                 options={occupationOptions}
-                formik={formik}
+                onChange={formik.handleChange}
               />
               <SelectInput
                 name="ward"
                 title="ওয়ার্ড"
                 options={wardOptions}
-                formik={formik}
+                onChange={formik.handleChange}
               />
               <SelectInput
                 name="gender"
                 title="লিংগ"
                 options={genderOptions}
-                formik={formik}
+                onChange={formik.handleChange}
               />
               <div>
                 <label htmlFor="totalMember" className="ml-1 text-sm">
@@ -112,17 +98,20 @@ const page = () => {
                 </label>
                 <div className="mt-1 flex items-start gap-2">
                   <InputField
-                    formik={formik}
+                    onChange={formik.handleChange}
+                    value={formik.values["totalMember"]}
                     name="totalMember"
                     placeholder="মোট সদস্য"
                   />
                   <InputField
-                    formik={formik}
+                    onChange={formik.handleChange}
+                    value={formik.values["maleMember"]}
                     name="maleMember"
                     placeholder="পুরুষ"
                   />
                   <InputField
-                    formik={formik}
+                    onChange={formik.handleChange}
+                    value={formik.values["femaleMember"]}
                     name="femaleMember"
                     placeholder="মহিলা"
                   />
@@ -134,12 +123,14 @@ const page = () => {
                 </label>
                 <div className="mt-1 flex items-start gap-2">
                   <InputField
-                    formik={formik}
+                    onChange={formik.handleChange}
+                    value={formik.values["maleChildren"]}
                     name="maleChildren"
                     placeholder="ছেলে"
                   />
                   <InputField
-                    formik={formik}
+                    onChange={formik.handleChange}
+                    value={formik.values["femaleChildren"]}
                     name="femaleChildren"
                     placeholder="মেয়ে"
                   />
@@ -154,12 +145,15 @@ const page = () => {
             <div className="grid grid-cols-2 gap-x-6 gap-y-2">
               <div className="flex flex-col gap-4">
                 {addressInputData.map((data, i) => (
-                  <InputField
-                    key={data.name}
-                    formik={formik}
-                    name={data.name}
-                    title={data.title}
-                  />
+                  <div key={i} className="flex flex-col">
+                    <InputField
+                      onChange={formik.handleChange}
+                      value={formik.values[data.name]}
+                      name={data.name}
+                      title={data.title}
+                    />
+                    <InputError message={formik.errors[data.name]} />
+                  </div>
                 ))}
               </div>
             </div>
@@ -169,12 +163,15 @@ const page = () => {
             <div className="grid grid-cols-2 gap-x-6 gap-y-2">
               <div className="flex flex-col gap-4">
                 {homeInputData.map((data, i) => (
-                  <InputField
-                    key={data.name}
-                    formik={formik}
-                    name={data.name}
-                    title={data.title}
-                  />
+                  <div key={i} className="flex flex-col">
+                    <InputField
+                      onChange={formik.handleChange}
+                      value={formik.values[data.name]}
+                      name={data.name}
+                      title={data.title}
+                    />
+                    <InputError message={formik.errors[data.name]} />
+                  </div>
                 ))}
               </div>
             </div>
@@ -184,18 +181,26 @@ const page = () => {
           <h2 className="mb-4 border-b text-xl">বার্ষিক আয়</h2>
           <div className="grid grid-cols-2 gap-x-6 gap-y-2">
             <div className="flex flex-col gap-4">
-              <InputField
-                key={1}
-                formik={formik}
-                name="yearlyincome"
-                title="বাৎসরিক আয়"
-              />
-              <InputField
-                key={2}
-                formik={formik}
-                name="tax"
-                title="করের পরিমান"
-              />
+              <div className="flex flex-col">
+                <InputField
+                  key={1}
+                  onChange={formik.handleChange}
+                  value={formik.values.yearlyIncome}
+                  name="yearlyIncome"
+                  title="বাৎসরিক আয়"
+                />
+                <InputError message={formik.errors.yearlyIncome} />
+              </div>
+              <div className="flex flex-col">
+                <InputField
+                  key={1}
+                  onChange={formik.handleChange}
+                  value={formik.values.tax}
+                  name="tax"
+                  title="করের পরিমান"
+                />
+                <InputError message={formik.errors.yearlyIncome} />
+              </div>
             </div>
             <div className="flex flex-col">
               <label htmlFor="comment" className="ml-1 text-sm">
@@ -208,16 +213,15 @@ const page = () => {
                 rows={3}
                 className="mt-1 w-full rounded-md p-2 outline-none"
               />
-              <InputError formik={formik} name="comment" />
             </div>
           </div>
         </div>
         <div className="mt-8 flex justify-center">
           <button
-            className="rounded-md bg-primary px-6 py-2 text-pure"
+            className="flex h-[40px] min-w-[100px] items-center justify-center rounded-md bg-primary px-6 py-2 text-pure"
             type="submit"
           >
-            নিবন্ধন করুন
+            {loading ? <Loading className="size-6" /> : "নিবন্ধন করুন"}
           </button>
         </div>
       </form>

@@ -3,10 +3,11 @@ import * as Yup from "yup";
 export const holdingSchema = Yup.object().shape({
   name: Yup.string()
     .required("নাম আবশ্যক")
-    .min(2, "নাম কমপক্ষে ২ অক্ষরের হতে হবে"),
+    .min(3, "নাম কমপক্ষে ৩ অক্ষরের হতে হবে"),
+  holdingNo: Yup.number().required("হোল্ডিং নাম্বার আবশ্যক"),
   guardianName: Yup.string()
     .required("পিতা/স্বামীর নাম আবশ্যক")
-    .min(2, "নাম কমপক্ষে ২ অক্ষরের হতে হবে"),
+    .min(3, "নাম কমপক্ষে ৩ অক্ষরের হতে হবে"),
   motherName: Yup.string()
     .required("মাতার নাম আবশ্যক")
     .min(2, "নাম কমপক্ষে ২ অক্ষরের হতে হবে"),
@@ -15,7 +16,7 @@ export const holdingSchema = Yup.object().shape({
     .matches(/^[0-9]+$/, "আইডি নম্বর শুধুমাত্র সংখ্যা হতে হবে"),
   mobile: Yup.string()
     .required("মোবাইল নম্বর আবশ্যক")
-    .matches(/^01[3-9]\d{8}$/, "অবৈধ মোবাইল নম্বর"),
+    .matches(/^01[3-9]\d{8}$/, "নম্বর ফরমেট সঠিক নয়"),
   yearlyIncome: Yup.number()
     .required("বাৎসরিক আয় আবশ্যক")
     .positive("বাৎসরিক আয় ধনাত্মক হতে হবে"),
@@ -43,16 +44,14 @@ export const holdingSchema = Yup.object().shape({
     .required("মহিলা শিশু সংখ্যা আবশ্যক")
     .integer("মহিলা শিশু সংখ্যা পূর্ণসংখ্যা হতে হবে")
     .min(0, "মহিলা শিশু সংখ্যা ঋণাত্মক হতে পারে না"),
-  multibuilding: Yup.boolean().required("বহুতল ঘর নির্বাচন করুন"),
-  building: Yup.boolean().required("পাকা ঘর নির্বাচন করুন"),
-  halfbuilding: Yup.boolean().required("আধা-পাকা ঘর নির্বাচন করুন"),
-  rawhouse: Yup.boolean().required("কাঁচা ঘর নির্বাচন করুন"),
+  multibuilding: Yup.number().required("বহুতল ঘর নির্বাচন করুন"),
+  building: Yup.number().required("পাকা ঘর নির্বাচন করুন"),
+  halfbuilding: Yup.number().required("আধা-পাকা ঘর নির্বাচন করুন"),
+  rawhouse: Yup.number().required("কাঁচা ঘর নির্বাচন করুন"),
   village: Yup.string().required("গ্রাম/মহল্লা নির্বাচন করুন"),
   postoffice: Yup.string().required("ডাকঘর নির্বাচন করুন"),
   thana: Yup.string().required("উপজেলা নির্বাচন করুন"),
-  distric: Yup.string().required("জেলা নির্বাচন করুন"),
+  district: Yup.string().required("জেলা নির্বাচন করুন"),
   tax: Yup.number().required("কর আবশ্যক").positive("কর ধনাত্মক হতে হবে"),
-  yearlyincome: Yup.number()
-    .required("বাৎসরিক আয় আবশ্যক")
-    .positive("বাৎসরিক আয় ধনাত্মক হতে হবে"),
+  comment: Yup.string(),
 });
